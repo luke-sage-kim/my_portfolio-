@@ -59,12 +59,38 @@
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
-  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
-  nav .logo { font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
-  nav ul { display: flex; gap: 24px; list-style: none; }
+  nav .wrap { display: flex; align-items: center; height: 60px; }
+  nav .logo { display: inline-flex; align-items: center; gap: 8px; flex: none; text-decoration: none; white-space: nowrap; }
+  nav .logo .mark {
+    display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent); color: var(--bg); font-size: 13px; font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+  }
+  nav .logo .name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; }
+  nav .logo .role { font-size: 14px; font-weight: 400; color: var(--muted); }
+  nav .logo .role::before { content: "·"; margin-right: 8px; color: var(--subtle); }
+  nav ul { display: flex; align-items: center; gap: 24px; list-style: none; margin-left: auto; }
   nav ul a { text-decoration: none; color: var(--muted); font-size: 15px; }
   nav ul a:hover { color: var(--accent); }
-  @media (max-width: 640px) { nav ul { display: none; } }
+  nav .nav-cta {
+    flex: none; margin-left: 32px; padding: 6px 14px; border-radius: 999px;
+    background: var(--text); color: var(--bg); font-size: 14px; font-weight: 600; line-height: 1.5;
+    text-decoration: none; white-space: nowrap; border: 0; font-family: inherit; cursor: pointer;
+  }
+  nav .nav-cta:hover { background: var(--accent); }
+  @media (max-width: 640px) {
+    html { scroll-padding-top: 112px; }
+    /* 1줄: 로고 + 연락하기 / 2줄: 가로 스크롤 메뉴 */
+    nav .wrap { flex-wrap: wrap; height: auto; padding-top: 12px; }
+    nav .logo .role { display: none; }
+    nav .nav-cta { order: 2; margin-left: auto; }
+    nav ul {
+      order: 3; flex: 0 0 100%; margin: 4px 0 0; gap: 20px; min-width: 0;
+      overflow-x: auto; white-space: nowrap;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul a { font-size: 14px; display: block; padding: 8px 0 10px; }
+  }
 
   /* hero */
   .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
@@ -74,15 +100,27 @@
     border-radius: 16px; border: 1px solid var(--line); background: var(--surface);
     margin-top: 8px;
   }
-  @media (max-width: 720px) {
-    .hero-top { flex-direction: column-reverse; gap: 24px; }
-    .photo { width: 96px; height: 112px; margin-top: 0; border-radius: 12px; }
-  }
+  .profile-meta { display: none; }
   .hero { padding: 96px 0 64px; }
   .eyebrow { color: var(--accent); font-weight: 600; font-size: 15px; margin-bottom: 16px; }
   .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.3; letter-spacing: -0.03em; font-weight: 800; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero .lead { margin-top: 24px; max-width: 680px; color: var(--muted); font-size: 18px; }
+  /* mobile hero: 사진 + 프로필 텍스트를 한 행으로 (같은 img를 grid로 재배치) */
+  @media (max-width: 720px) {
+    .hero { padding: 40px 0 48px; }
+    .hero-top { display: grid; grid-template-columns: 72px 1fr; column-gap: 16px; row-gap: 0; align-items: center; }
+    .hero-text { display: contents; }
+    .hero .eyebrow { display: none; }
+    .photo { grid-column: 1; grid-row: 1; width: 72px; height: 84px; margin-top: 0; border-radius: 12px; }
+    .profile-meta { display: block; grid-column: 2; grid-row: 1; min-width: 0; }
+    .profile-meta .name { display: block; font-size: 18px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; }
+    .profile-meta .role { display: block; font-size: 14px; color: var(--muted); line-height: 1.5; }
+    .profile-meta .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .profile-meta .tag { font-size: 12px; padding: 2px 8px; }
+    .hero h1, .hero .lead { grid-column: 1 / -1; }
+    .hero h1 { margin-top: 24px; }
+  }
   .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
@@ -92,17 +130,24 @@
   .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
   .btn:hover { border-color: var(--accent); }
 
-  .metrics {
-    margin-top: 56px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;
+  .glance-head { margin-top: 56px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .glance-head h2 { font-size: 15px; color: var(--subtle); font-weight: 600; letter-spacing: 0; }
+  .glance-head span { font-size: 14px; color: var(--subtle); }
+  .glance { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .gcard {
+    display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 22px 18px; text-decoration: none; transition: border-color .15s;
   }
-  .metric { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .metric b { display: block; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; white-space: nowrap; }
-  @media (max-width: 560px) {
-    .metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .metric { padding: 16px; }
-    .metric b { font-size: 21px; }
-    .metric span { font-size: 13px; }
+  .gcard:hover { border-color: var(--accent); }
+  .gcard .period { font-size: 13px; color: var(--subtle); }
+  .gcard h3 { font-size: 18px; letter-spacing: -0.02em; margin-top: 4px; line-height: 1.4; }
+  .gcard .org { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .gcard ul { list-style: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+  .gcard li { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .gcard li b { display: block; color: var(--accent); font-size: 17px; letter-spacing: -0.01em; }
+  .gcard .more { margin-top: auto; padding-top: 14px; font-size: 13px; color: var(--subtle); }
+  @media (max-width: 860px) { .glance { grid-template-columns: 1fr; } }
     .metric:last-child { grid-column: span 2; }
   }
   .metric span { display: block; margin-top: 6px; font-size: 14px; color: var(--muted); line-height: 1.5; }
@@ -163,26 +208,53 @@
 
   footer { padding: 48px 0 64px; border-top: 1px solid var(--line); color: var(--subtle); font-size: 14px; }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+  /* copy email */
+  button.btn { font-family: inherit; line-height: inherit; color: inherit; cursor: pointer; justify-content: center; }
+  button.btn.primary { color: var(--bg); }
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; z-index: 30;
+    transform: translate(-50%, 8px);
+    width: max-content; max-width: calc(100vw - 32px);
+    padding: 10px 18px; border-radius: 12px;
+    background: var(--text); color: var(--bg);
+    font-size: 14px; font-weight: 500; line-height: 1.5; text-align: center;
+    overflow-wrap: anywhere; box-shadow: 0 6px 24px rgb(0 0 0 / 0.18);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .25s, transform .25s, visibility 0s linear .25s;
+  }
+  .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); transition: opacity .25s, transform .25s; }
+  .toast.manual { pointer-events: auto; user-select: text; }
+  .toast b { font-weight: 700; user-select: all; }
+  @media (prefers-reduced-motion: reduce) { .toast, .toast.show { transition: none; } }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="wrap">
-    <a class="logo" href="#top">김명현</a>
+    <a class="logo" href="#top" aria-label="김명현 · Backend Developer, 맨 위로"><span class="mark" aria-hidden="true">MH</span><span class="name">김명현</span><span class="role">Backend Developer</span></a>
     <ul>
       <li><a href="#cases">핵심 사례</a></li>
       <li><a href="#experience">이력</a></li>
       <li><a href="#skills">기술</a></li>
+      <!-- 토이 프로젝트 추가 시 주석 해제 -->
+      <!-- <li><a href="#projects">프로젝트</a></li> -->
       <li><a href="#about">학력·자격</a></li>
     </ul>
+    <button type="button" class="nav-cta" data-copy-email title="클릭하면 메일 주소가 복사됩니다">연락하기</button>
   </div>
 </nav>
 
 <header class="hero" id="top">
   <div class="wrap">
     <div class="hero-top">
-      <div>
+      <div class="hero-text">
+    <div class="profile-meta">
+      <span class="name">김명현</span>
+      <span class="role">백엔드 개발자 · 개발 경력 약 4년</span>
+      <div class="badges"><span class="tag gray">Java / Spring</span><span class="tag gray">서울·경기 근무 가능</span></div>
+    </div>
     <p class="eyebrow">Backend Developer · Java / Spring</p>
     <h1>장애 복구에서 멈추지 않고,<br><em>재발하지 않는 구조</em>를 만드는<br>백엔드 개발자 김명현입니다.</h1>
     <p class="lead">
@@ -194,17 +266,49 @@
       <img class="photo" src="data:image/jpeg;base64,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" alt="김명현 프로필 사진" width="128" height="149">
     </div>
     <div class="links">
-      <a class="btn primary" href="mailto:kmh950618@naver.com">✉ kmh950618@naver.com</a>
+      <button type="button" class="btn primary" data-copy-email title="클릭하면 메일 주소가 복사됩니다">✉ kmh950618@naver.com</button>
       <a class="btn" href="tel:010-4628-5147">☎ 010-4628-5147</a>
       <a class="btn" href="https://github.com/luke-sage-kim" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
 
-    <div class="metrics">
-      <div class="metric"><b>2시간</b><span>글로벌 로그인 장애 복구<br>(전체 버전 마이그레이션 시 3일 이상)</span></div>
-      <div class="metric"><b>0건</b><span>RAG 챗봇 OOM 장애<br>조치 후 재발</span></div>
-      <div class="metric"><b>8 → 1회</b><span>로그인 1건당<br>API 호출 수</span></div>
-      <div class="metric"><b>2,300건</b><span>14개 프로젝트 보안 취약점 전수 조치<br>(High 등급 전량 해소)</span></div>
-      <div class="metric"><b>3시간 → 5분</b><span>보험 약관 분석·추출<br>시간 단축</span></div>
+    <div class="glance-head">
+      <h2>경력 한눈에 보기</h2>
+      <span>개발 경력 약 4년 · 3개 도메인</span>
+    </div>
+    <div class="glance">
+      <a class="gcard" href="#job-ai">
+        <span class="period">2026.03 – 현재</span>
+        <h3>사내 AX 서비스</h3>
+        <span class="org">㈜아이티오솔루션 · 대기업 AX조직 파견</span>
+        <ul>
+          <li><b>9종 단독 운영</b>RAG 챗봇·AI Agent 등 사내 AX 서비스를 인수인계 후 혼자 운영</li>
+          <li><b>OOM 장애 재발 0건</b>챗봇 전체를 멈춘 장애를 근본 원인부터 해결</li>
+          <li><b>취약점 2,300건 조치</b>14개 프로젝트 전수 점검, High 등급 전량 해소</li>
+        </ul>
+        <span class="more">자세히 보기 ↓</span>
+      </a>
+      <a class="gcard" href="#job-game">
+        <span class="period">2025.08 – 2026.03</span>
+        <h3>글로벌 모바일 RPG 게임 서버</h3>
+        <span class="org">㈜하이브로 · 라이브본부</span>
+        <ul>
+          <li><b>로그인 장애 2시간 내 복구</b>전 세계 유저 로그인 불가 장애, 정석 해법은 3일 이상</li>
+          <li><b>DB 쓰기 30% 감소</b>DB 서버 다운 원인을 찾아 저장 구조 개선</li>
+          <li><b>PvP 콘텐츠 서버 단독 개발</b>점수 알고리즘·진영 채팅·랭킹 보상</li>
+        </ul>
+        <span class="more">자세히 보기 ↓</span>
+      </a>
+      <a class="gcard" href="#job-insurance">
+        <span class="period">2023.08 – 2025.07</span>
+        <h3>보험 문서 자동화 솔루션</h3>
+        <span class="org">㈜메인라인 · 솔루션1팀</span>
+        <ul>
+          <li><b>보험사 5곳 구축</b>생명보험 3개사·손해보험 2개사 약관·산출방법서 분석</li>
+          <li><b>분석 시간 3시간 → 5분</b>약관 602건을 16개 패턴으로 공통화</li>
+          <li><b>매칭 정확도 95% 이상</b>보종별 데이터 자동 추출</li>
+        </ul>
+        <span class="more">자세히 보기 ↓</span>
+      </a>
     </div>
   </div>
 </header>
@@ -216,7 +320,6 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>핵심 문제 해결 사례</h2>
-      <p>문제 → 원인 → 조치 → 결과 순서로 정리했습니다.</p>
     </div>
 
     <div class="cases">
@@ -257,7 +360,7 @@
           <dt>제약</dt>
           <dd>기존 서버가 Java 8 환경이라 신규 인증 방식(HTTP v1, OAuth2)을 바로 적용할 수 없음. 전체 버전 마이그레이션은 3일 이상 소요.</dd>
           <dt>판단·조치</dt>
-          <dd>인증 기능만 별도 서버로 분리 구현해 기존 서버의 변경 범위를 최소화. 지금 서비스를 살리면서도 이후 정상 구조로 되돌릴 수 있는 해법을 기준으로 선택.</dd>
+          <dd>인증 기능만 별도 서버로 분리 구현해 기존 서버의 변경 범위를 최소화. "지금 서비스를 살리면서도 이후 정상 구조로 되돌릴 수 있는 해법"을 기준으로 선택.</dd>
         </dl>
         <div class="result">장애 발생 후 2시간 내 전체 복구</div>
       </article>
@@ -351,7 +454,7 @@
             </ul>
           </dd>
         </dl>
-        <div class="result">비정상 외부 통신 2분당 21건 → 0건 · 업로드 실패율 50% 감소 · 검수 시간 10분 → 1분 (현업 직접 측정 · 판별 정확도 99%, 검수 샘플 2,000건 기준)</div>
+        <div class="result">비정상 외부 통신 2분당 21건 → 0건 · 업로드 실패율 50% 감소 · 검수 시간 10분 → 1분 (판별 정확도 99%, 검수 샘플 2,000건 기준)</div>
       </article>
 
     </div>
@@ -363,14 +466,14 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>이력</h2>
-      <p>백엔드 개발 실무 2023년~ · Java/Spring 기반 백엔드 개발 및 운영</p>
+      <p>개발 경력 약 4년 · Java/Spring 기반 백엔드 개발 및 운영</p>
     </div>
 
-    <div class="job">
+    <div class="job" id="job-ai">
       <div class="when"><b>2026.03 – 현재</b>㈜아이티오솔루션 · 대리<br>대기업 AX조직 파견</div>
       <div>
         <h3>사내 AX 서비스 개발·운영</h3>
-        <p class="summary">사내 AX 서비스 9종(유News, RAG 솔루션, DX포털, 메일링, 정형리포트 Agent, AI Agent 파견소, ITSM Agent, AI Agent Library, Ebiils)을 인수인계 후 단독 운영</p>
+        <p class="summary">RAG 지식챗봇, AI Agent 4종, 뉴스 크롤링 WAS, LLM 리포트 메일링, 사내 포털 등 AX 서비스 9종을 인수인계 후 단독 운영</p>
         <ul>
           <li>RAG 지식챗봇 OOM 장애 근본 해결, 업로드 한도 <strong>180MB → 300MB+</strong></li>
           <li>퇴사자 리소스 처리 기능 기획·개발·배포 단독 수행, 방치 리소스 <strong>204건</strong> 전량 이관</li>
@@ -385,8 +488,8 @@
       </div>
     </div>
 
-    <div class="job">
-      <div class="when"><b>2025.08 – 2026.03</b>㈜하이브로 · 주임<br>라이브본부</div>
+    <div class="job" id="job-game">
+      <div class="when"><b>2025.08 – 2026.03</b>㈜하이브로 · 사원<br>라이브본부</div>
       <div>
         <h3>글로벌 모바일 RPG 게임 서버 개발·운영</h3>
         <p class="summary">30개국 언어로 서비스하는 모바일 RPG의 신규 콘텐츠 개발, 라이브 장애 대응, 성능 개선, AWS 인프라 운영</p>
@@ -404,7 +507,7 @@
       </div>
     </div>
 
-    <div class="job">
+    <div class="job" id="job-insurance">
       <div class="when"><b>2023.08 – 2025.07</b>㈜메인라인 · 주임<br>솔루션1팀</div>
       <div>
         <h3>보험사 기초서류(약관·산출방법서) 자동 분석 솔루션</h3>
@@ -435,22 +538,6 @@
         </div>
       </div>
     </div>
-
-    <div class="job">
-      <div class="when"><b>2020.01 – 2022.12</b>세무사 시험 준비<br>수험 기간</div>
-      <div>
-        <h3>세무사 2차 시험 응시 후 개발 공부 시작</h3>
-        <p class="summary">2차 시험 종료 후 2022.08부터 개발 학습을 시작해 2023년 개발 업무로 전환</p>
-      </div>
-    </div>
-
-    <div class="job">
-      <div class="when"><b>2019.01 – 2019.12</b>㈜씨앤에스솔루션<br>사무지원</div>
-      <div>
-        <h3>개발 QA · 사무지원</h3>
-        <p class="summary">개발 QA 업무와 사무지원 업무 수행</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -459,7 +546,6 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>기술</h2>
-      <p>실무에서 직접 사용한 기술만 적었습니다.</p>
     </div>
     <div class="skills">
       <div class="skill"><h4>Backend</h4><p>Java, Spring Boot, JPA, MyBatis, Python, REST API, Protocol Buffers</p></div>
@@ -472,16 +558,46 @@
   </div>
 </section>
 
+<!-- ============ 토이 프로젝트 (나중에 추가) ============
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>개인 프로젝트</h2>
+      <p>업무 밖에서 만든 프로젝트입니다.</p>
+    </div>
+    <div class="cases">
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">개인 프로젝트</span>
+          <span class="tag gray">2026</span>
+          <span class="tag gray">Spring Boot · Redis</span>
+        </div>
+        <h3>프로젝트 이름</h3>
+        <dl class="flow">
+          <dt>목적</dt><dd>왜 만들었는지 한두 문장</dd>
+          <dt>구현</dt><dd><ul><li>핵심 기능 또는 기술적 포인트</li><li>고민했던 설계 결정</li></ul></dd>
+        </dl>
+        <div class="result">결과 또는 배운 점</div>
+        <div class="links">
+          <a class="btn" href="https://github.com/luke-sage-kim/REPO" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="#" target="_blank" rel="noopener">Demo ↗</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+============================================== -->
+
 <!-- ============ 학력 · 자격 ============ -->
 <section id="about">
   <div class="wrap">
     <div class="two">
       <div>
-        <h3 class="small">자격증 · 시험</h3>
+        <h3 class="small">자격증</h3>
         <ul class="list-plain">
           <li><span>정보처리기사</span><span>2023.11</span></li>
           <li><span>SQL 개발자(SQLD)</span><span>2024.04</span></li>
-          <li><span>세무사 1차 시험 합격</span><span>2021.05</span></li>
+          <li><span>세무사 1차 합격</span><span>2021.05</span></li>
         </ul>
       </div>
       <div>
@@ -505,6 +621,75 @@
     <span>010-4628-5147 · <a href="mailto:kmh950618@naver.com">kmh950618@naver.com</a> · <a href="https://github.com/luke-sage-kim" target="_blank" rel="noopener">github.com/luke-sage-kim</a></span>
   </div>
 </footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var EMAIL = 'kmh950618@naver.com';
+  var DONE_LABEL = '✓ 메일 주소 복사됨';
+  var toast = document.getElementById('toast');
+  var toastTimer;
+
+  function showToast(html, ms, manual) {
+    clearTimeout(toastTimer);
+    toast.innerHTML = html;
+    toast.classList.toggle('manual', !!manual);
+    toast.classList.add('show');
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, ms);
+  }
+
+  function legacyCopy(text) {
+    var active = document.activeElement;
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none;';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    if (active && active.focus) active.focus();
+    return ok;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).then(
+        function () { return true; },
+        function () { return legacyCopy(text); }
+      );
+    }
+    return Promise.resolve(legacyCopy(text));
+  }
+
+  function copyEmail(btn) {
+    copyText(EMAIL).then(function (ok) {
+      if (!ok) {
+        showToast('<b>' + EMAIL + '</b><br>복사하지 못했어요. 직접 복사해 주세요.', 6000, true);
+        return;
+      }
+      if (!btn.dataset.label) {
+        btn.dataset.label = btn.textContent;
+        btn.style.minWidth = btn.offsetWidth + 'px'; // 글자가 짧아져도 버튼 폭 유지
+      }
+      btn.textContent = DONE_LABEL;
+      clearTimeout(btn._copyTimer);
+      btn._copyTimer = setTimeout(function () {
+        btn.textContent = btn.dataset.label;
+        btn.style.minWidth = '';
+        delete btn.dataset.label;
+      }, 2000);
+      showToast(EMAIL + ' 복사됨', 2000);
+    });
+  }
+
+  document.querySelectorAll('[data-copy-email]').forEach(function (btn) {
+    btn.addEventListener('click', function () { copyEmail(btn); });
+  });
+})();
+</script>
 
 </body>
 </html>
