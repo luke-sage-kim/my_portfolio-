@@ -11,3 +11,12 @@
 
 - `index.html`: 페이지 전체 (CSS 인라인, 프로필 사진 base64 포함)
 - 폰트: Pretendard (jsDelivr CDN)
+
+## GitHub Pages 배포
+
+1. 저장소 **Settings → Pages**로 이동합니다.
+2. **Build and deployment → Source**를 **GitHub Actions**로 선택합니다.
+3. `main` 브랜치에 push하면 `.github/workflows/pages.yml`이 자동으로 배포합니다.
+4. 배포 주소: `https://luke-sage-kim.github.io/my_portfolio-/`
+
+`.nojekyll` 파일은 Jekyll 처리를 끄기 위해 넣어 두었습니다.
