@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김명현 | 백엔드 개발자 포트폴리오</title>
+<meta name="description" content="장애 복구에서 멈추지 않고, 재발하지 않는 구조를 만드는 백엔드 개발자 김명현의 포트폴리오">
+<meta property="og:title" content="김명현 | 백엔드 개발자 포트폴리오">
+<meta property="og:description" content="장애 복구에서 멈추지 않고, 재발하지 않는 구조를 만드는 백엔드 개발자">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root {
+    --bg: #fafaf9;
+    --surface: #ffffff;
+    --text: #1c1917;
+    --muted: #57534e;
+    --subtle: #a8a29e;
+    --line: #e7e5e4;
+    --accent: #0f766e;
+    --accent-soft: #ccfbf1;
+    --warn: #b45309;
+    --warn-soft: #fef3c7;
+    --radius: 14px;
+    --max: 1040px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0a09;
+      --surface: #1c1917;
+      --text: #f5f5f4;
+      --muted: #a8a29e;
+      --subtle: #78716c;
+      --line: #292524;
+      --accent: #2dd4bf;
+      --accent-soft: #134e4a;
+      --warn: #fbbf24;
+      --warn-soft: #451a03;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  nav .logo { font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
+  nav ul { display: flex; gap: 24px; list-style: none; }
+  nav ul a { text-decoration: none; color: var(--muted); font-size: 15px; }
+  nav ul a:hover { color: var(--accent); }
+  @media (max-width: 640px) { nav ul { display: none; } }
+
+  /* hero */
+  .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; }
+  .hero-top > div { min-width: 0; }
+  .photo {
+    flex: none; width: 128px; height: 149px; object-fit: cover;
+    border-radius: 16px; border: 1px solid var(--line); background: var(--surface);
+    margin-top: 8px;
+  }
+  @media (max-width: 720px) {
+    .hero-top { flex-direction: column-reverse; gap: 24px; }
+    .photo { width: 96px; height: 112px; margin-top: 0; border-radius: 12px; }
+  }
+  .hero { padding: 96px 0 64px; }
+  .eyebrow { color: var(--accent); font-weight: 600; font-size: 15px; margin-bottom: 16px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 48px); line-height: 1.3; letter-spacing: -0.03em; font-weight: 800; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 24px; max-width: 680px; color: var(--muted); font-size: 18px; }
+  .links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    text-decoration: none; border: 1px solid var(--line); background: var(--surface);
+  }
+  .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .btn:hover { border-color: var(--accent); }
+
+  .metrics {
+    margin-top: 56px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;
+  }
+  .metric { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .metric b { display: block; font-size: 26px; letter-spacing: -0.02em; line-height: 1.2; white-space: nowrap; }
+  @media (max-width: 560px) {
+    .metrics { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .metric { padding: 16px; }
+    .metric b { font-size: 21px; }
+    .metric span { font-size: 13px; }
+    .metric:last-child { grid-column: span 2; }
+  }
+  .metric span { display: block; margin-top: 6px; font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+  /* sections */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .sec-head { margin-bottom: 36px; }
+  .sec-head h2 { font-size: 28px; letter-spacing: -0.02em; }
+  .sec-head p { color: var(--muted); margin-top: 6px; }
+
+  /* cases */
+  .cases { display: grid; gap: 20px; }
+  .case { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; }
+  .case-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .tag { font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .tag.gray { background: var(--bg); color: var(--muted); border: 1px solid var(--line); font-weight: 500; }
+  .case h3 { font-size: 21px; letter-spacing: -0.02em; line-height: 1.45; }
+  .result {
+    margin-top: 16px; padding: 14px 18px; border-radius: 10px;
+    background: var(--accent-soft); color: var(--text); font-weight: 600; font-size: 15px;
+  }
+  .flow { margin-top: 20px; display: grid; grid-template-columns: 88px 1fr; gap: 10px 16px; font-size: 15px; }
+  .flow dt { color: var(--subtle); font-weight: 600; }
+  .flow dd { color: var(--muted); }
+  .flow dd ul { padding-left: 18px; }
+  @media (max-width: 560px) {
+    .case { padding: 24px 20px; }
+    .flow { grid-template-columns: 1fr; gap: 2px; }
+    .flow dd { margin-bottom: 10px; }
+  }
+
+  /* experience */
+  .job { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px dashed var(--line); }
+  .job:last-child { border-bottom: 0; }
+  .job .when { color: var(--subtle); font-size: 14px; }
+  .job .when b { display: block; color: var(--text); font-size: 17px; margin-bottom: 4px; }
+  .job h3 { font-size: 19px; letter-spacing: -0.01em; }
+  .job .summary { color: var(--muted); margin: 4px 0 14px; }
+  .job ul { padding-left: 18px; color: var(--text); }
+  .job li { margin: 4px 0; }
+  .job li strong { color: var(--accent); font-weight: 600; }
+  .stack { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+  @media (max-width: 720px) { .job { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* skills */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+  .skill { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .skill h4 { font-size: 14px; color: var(--subtle); margin-bottom: 10px; font-weight: 600; }
+  .skill p { font-size: 15px; }
+
+  /* etc */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  @media (max-width: 720px) { .two { grid-template-columns: 1fr; } }
+  .list-plain { list-style: none; }
+  .list-plain li { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .list-plain li span:last-child { color: var(--subtle); white-space: nowrap; }
+  h3.small { font-size: 17px; margin-bottom: 8px; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); color: var(--subtle); font-size: 14px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">김명현</a>
+    <ul>
+      <li><a href="#cases">핵심 사례</a></li>
+      <li><a href="#experience">이력</a></li>
+      <li><a href="#skills">기술</a></li>
+      <li><a href="#about">학력·자격</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+    <p class="eyebrow">Backend Developer · Java / Spring</p>
+    <h1>장애 복구에서 멈추지 않고,<br><em>재발하지 않는 구조</em>를 만드는<br>백엔드 개발자 김명현입니다.</h1>
+    <p class="lead">
+      보험 문서 자동화 솔루션, 30개국에 서비스하는 모바일 RPG 게임 서버, 대기업 사내 AX 서비스(RAG 챗봇·AI Agent)까지
+      서로 다른 세 도메인에서 개발과 운영을 맡아 왔습니다. 장애가 나면 먼저 서비스를 살리고, 원인을 코드 수준까지 추적한 뒤,
+      같은 문제가 다시 생기지 않도록 구조를 바꿉니다.
+    </p>
+      </div>
+      <img class="photo" src="data:image/jpeg;base64,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" alt="김명현 프로필 사진" width="128" height="149">
+    </div>
+    <div class="links">
+      <a class="btn primary" href="mailto:kmh950618@naver.com">✉ kmh950618@naver.com</a>
+      <a class="btn" href="tel:010-4628-5147">☎ 010-4628-5147</a>
+      <a class="btn" href="https://github.com/luke-sage-kim" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><b>2시간</b><span>글로벌 로그인 장애 복구<br>(전체 버전 마이그레이션 시 3일 이상)</span></div>
+      <div class="metric"><b>0건</b><span>RAG 챗봇 OOM 장애<br>조치 후 재발</span></div>
+      <div class="metric"><b>8 → 1회</b><span>로그인 1건당<br>API 호출 수</span></div>
+      <div class="metric"><b>2,300건</b><span>14개 프로젝트 보안 취약점 전수 조치<br>(High 등급 전량 해소)</span></div>
+      <div class="metric"><b>3시간 → 5분</b><span>보험 약관 분석·추출<br>시간 단축</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ 핵심 사례 ============ -->
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>핵심 문제 해결 사례</h2>
+      <p>문제 → 원인 → 조치 → 결과 순서로 정리했습니다.</p>
+    </div>
+
+    <div class="cases">
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">장애 대응</span>
+          <span class="tag gray">사내 AX 서비스 · 2026</span>
+          <span class="tag gray">Java · OpenSearch</span>
+        </div>
+        <h3>RAG 지식챗봇 대용량 업로드 OOM 장애 해결</h3>
+        <dl class="flow">
+          <dt>문제</dt>
+          <dd>지식 문서 업로드 중 OOM이 발생해 챗봇 서비스 전체가 응답하지 않음. 즉시 재기동으로 복구한 뒤 근본 원인 분석에 착수.</dd>
+          <dt>원인</dt>
+          <dd>리인덱싱 시 전체 청크를 OpenSearch에 한 번의 요청으로 적재하면서 Heap 메모리가 급증하는 구조.</dd>
+          <dt>조치</dt>
+          <dd>
+            <ul>
+              <li>최대 200건 단위 분할(Bulk) 적재로 바꿔 메모리 사용량에 상한을 둠</li>
+              <li>임베딩 실패 시 문서가 "업로드 중"으로 고착되던 문제에 실패 상태 처리 로직을 추가해 사용자가 재시도할 수 있게 함</li>
+            </ul>
+          </dd>
+        </dl>
+        <div class="result">180MB 이상에서 실패하던 업로드를 300MB 이상까지 정상 처리 · 이후 동일 장애 재발 0건</div>
+      </article>
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">장애 대응</span>
+          <span class="tag gray">모바일 RPG 게임 서버 · 2025</span>
+          <span class="tag gray">Java · FCM · OAuth2</span>
+        </div>
+        <h3>FCM 인증 방식 변경으로 발생한 글로벌 로그인 장애 2시간 내 복구</h3>
+        <dl class="flow">
+          <dt>문제</dt>
+          <dd>Google FCM Legacy API 지원 종료로 로그인 과정의 푸시 토큰 등록이 실패해 전 세계 유저가 로그인하지 못하는 장애 발생.</dd>
+          <dt>제약</dt>
+          <dd>기존 서버가 Java 8 환경이라 신규 인증 방식(HTTP v1, OAuth2)을 바로 적용할 수 없음. 전체 버전 마이그레이션은 3일 이상 소요.</dd>
+          <dt>판단·조치</dt>
+          <dd>인증 기능만 별도 서버로 분리 구현해 기존 서버의 변경 범위를 최소화. 지금 서비스를 살리면서도 이후 정상 구조로 되돌릴 수 있는 해법을 기준으로 선택.</dd>
+        </dl>
+        <div class="result">장애 발생 후 2시간 내 전체 복구</div>
+      </article>
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">성능 개선</span>
+          <span class="tag gray">모바일 RPG 게임 서버 · 2025</span>
+          <span class="tag gray">MySQL · Redis · ELK</span>
+        </div>
+        <h3>DB 서버 다운 원인 분석과 서버 성능·데이터 정합성 개선</h3>
+        <dl class="flow">
+          <dt>문제</dt>
+          <dd>DB 서버 다운과 높은 부하, 로그 인덱스 필드가 끝없이 늘어나는 문제가 함께 발생.</dd>
+          <dt>원인</dt>
+          <dd>고빈도 API에서 save가 반복 실행되는 구조, 유저 ID가 로그 필드명으로 저장되는 구조(mapping explosion).</dd>
+          <dt>조치</dt>
+          <dd>
+            <ul>
+              <li>반복 save를 일괄 저장으로 변경, 나뉘어 있던 로그인 요청을 하나의 API로 통합</li>
+              <li>게임 데이터 Enum 구조를 Map 기반 조회 구조로 변경</li>
+              <li>로그 구조를 ID를 값으로 저장하도록 변경</li>
+              <li>점수 int 오버플로를 long 필드 추가와 무중단 데이터 마이그레이션으로 해결</li>
+            </ul>
+          </dd>
+        </dl>
+        <div class="result">DB 쓰기 30% 감소 · 로그인 호출 8회 → 1회 · 서버 메모리 30% 감소 · Kibana 필드 3,000개 → 700개</div>
+      </article>
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">기획 → 배포 단독 수행</span>
+          <span class="tag gray">사내 AX 서비스 · 2026</span>
+          <span class="tag gray">Java · React</span>
+        </div>
+        <h3>퇴사자 계정·리소스 처리 기능을 기획부터 배포까지 단독 수행</h3>
+        <dl class="flow">
+          <dt>문제</dt>
+          <dd>퇴사자가 소유한 챗봇과 지식 문서 204건이 관리 주체 없이 방치됨. 처리는 수작업 요청에 의존.</dd>
+          <dt>조치</dt>
+          <dd>
+            <ul>
+              <li>요구사항 정의 → 기획안 작성·승인 → 프론트엔드·백엔드 개발 → 매뉴얼 작성 → 배포까지 전 과정 단독 수행</li>
+              <li>인사 시스템의 재직자 사번 목록과 서비스 사번의 차집합으로 퇴사자를 판별</li>
+              <li>소유권 일괄 이관 중 일부 리소스에서 문제가 생겨도 데이터가 어긋나지 않도록 예외 상황별 처리 로직 설계</li>
+              <li>플랫폼사업팀·정보보호팀과 직접 협의해 사번 연동 방식과 개인정보 비식별화 기준 확정</li>
+            </ul>
+          </dd>
+        </dl>
+        <div class="result">방치 리소스 204건 전량 이관 · 수작업 요청 업무를 관리자 화면에서 직접 처리하도록 전환</div>
+      </article>
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">검증 체계</span>
+          <span class="tag gray">모바일 RPG 게임 서버 · 2025</span>
+          <span class="tag gray">Java</span>
+        </div>
+        <h3>확률형 성장 콘텐츠 설계와 100만 회 시뮬레이션 확률 검증 API 구축</h3>
+        <dl class="flow">
+          <dt>배경</dt>
+          <dd>확률형 아이템 정보 공개 의무에 따라 공지 확률과 실제 분포가 일치함을 보장해야 함.</dd>
+          <dt>조치</dt>
+          <dd>
+            <ul>
+              <li>합성·각인·보물 강화 등 확률 기반 성장 시스템의 확률 알고리즘 설계·구현</li>
+              <li>100만 회 시뮬레이션으로 공지 확률과 실제 분포를 비교하는 검증 전용 API 개발</li>
+              <li>라이브 중 발견한 룬 강화 확률 계산 오류를 수정하고, 해당 케이스를 검증 API에 추가해 재발 방지</li>
+            </ul>
+          </dd>
+        </dl>
+        <div class="result">공지 확률과 실제 분포가 오차 범위 내에서 일치함을 배포 전 검증하는 체계 확립</div>
+      </article>
+
+      <article class="case">
+        <div class="case-top">
+          <span class="tag">안정화 · LLM</span>
+          <span class="tag gray">사내 AX 서비스 · 2026</span>
+          <span class="tag gray">Python · Selenium · LLM</span>
+        </div>
+        <h3>뉴스 크롤링 서비스 안정화와 LLM 기반 관련성 판별 파이프라인</h3>
+        <dl class="flow">
+          <dt>문제</dt>
+          <dd>관계사 보안팀의 외부 트래픽 차단 경보, 기사 1건의 예외로 전체 업로드가 취소되는 구조, 수작업 뉴스 검수.</dd>
+          <dt>조치</dt>
+          <dd>
+            <ul>
+              <li>크롤링 브라우저(Chromium) 내부 푸시 모듈의 외부 통신이 원인임을 밝혀 차단</li>
+              <li>예외가 난 기사만 건너뛰고, 네트워크 지연에 대비해 최대 3회 재시도 추가</li>
+              <li>크롤링 → LLM 관련성 판별 → 결과 리포트 메일 발송 파이프라인 개발</li>
+            </ul>
+          </dd>
+        </dl>
+        <div class="result">비정상 외부 통신 2분당 21건 → 0건 · 업로드 실패율 50% 감소 · 검수 시간 10분 → 1분 (현업 직접 측정 · 판별 정확도 99%, 검수 샘플 2,000건 기준)</div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 이력 ============ -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>이력</h2>
+      <p>백엔드 개발 실무 2023년~ · Java/Spring 기반 백엔드 개발 및 운영</p>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2026.03 – 현재</b>㈜아이티오솔루션 · 대리<br>대기업 AX조직 파견</div>
+      <div>
+        <h3>사내 AX 서비스 개발·운영</h3>
+        <p class="summary">사내 AX 서비스 9종(유News, RAG 솔루션, DX포털, 메일링, 정형리포트 Agent, AI Agent 파견소, ITSM Agent, AI Agent Library, Ebiils)을 인수인계 후 단독 운영</p>
+        <ul>
+          <li>RAG 지식챗봇 OOM 장애 근본 해결, 업로드 한도 <strong>180MB → 300MB+</strong></li>
+          <li>퇴사자 리소스 처리 기능 기획·개발·배포 단독 수행, 방치 리소스 <strong>204건</strong> 전량 이관</li>
+          <li>Sparrow로 14개 프로젝트 전수 점검, 취약점 <strong>2,300건</strong> 조치(High 전량 해소). Spring Boot·Tomcat·Next.js·Python 3.10 → 3.13 업그레이드와 의존성 충돌 해결</li>
+          <li>멀티턴 후속 질문 오답 개선(이전 질문 검색 메타데이터를 컨텍스트에 포함), 금칙어 필터 오탐 제거 및 초성 우회 탐지 추가</li>
+          <li>정적 HTML 기반 AI Agent 소개 사이트를 React로 전환, 콘텐츠를 JSON으로 분리하고 PR 빌드 시 자동 검증 도입 → 에이전트 <strong>28개</strong> 등록, 월 평균 방문자 150명</li>
+          <li>GPT-4 지원 종료 대응으로 LLM 리포트 서비스를 신규 모델로 마이그레이션, 프롬프트 재설계로 JSON 출력 오류 해결</li>
+        </ul>
+        <div class="stack">
+          <span class="tag gray">Java</span><span class="tag gray">Spring Boot</span><span class="tag gray">Python</span><span class="tag gray">React</span><span class="tag gray">Next.js</span><span class="tag gray">OpenSearch</span><span class="tag gray">LLM</span><span class="tag gray">Jenkins</span><span class="tag gray">GitHub Actions</span><span class="tag gray">Docker</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2025.08 – 2026.03</b>㈜하이브로 · 주임<br>라이브본부</div>
+      <div>
+        <h3>글로벌 모바일 RPG 게임 서버 개발·운영</h3>
+        <p class="summary">30개국 언어로 서비스하는 모바일 RPG의 신규 콘텐츠 개발, 라이브 장애 대응, 성능 개선, AWS 인프라 운영</p>
+        <ul>
+          <li>FCM 인증 방식 변경으로 인한 글로벌 로그인 장애를 인증 서버 분리로 <strong>2시간 내</strong> 복구</li>
+          <li>진영 대전 PvP 콘텐츠 서버 단독 개발: 제로섬 점수 알고리즘, Protocol Buffers 기반 진영 채팅, 주간 랭킹 보상 자동 지급(보상 누락 문의 <strong>30건 → 0건</strong>)</li>
+          <li>EBS gp2 → gp3 전환으로 EBS 비용 <strong>약 15%</strong> 절감, RDS MySQL 8.0 → 8.4 업그레이드, 레거시 ELK 이전(로그 150GB)</li>
+          <li>오래된 콘텐츠 데이터 주간 백업·삭제 스케줄러로 Redis 메모리 <strong>20%</strong> 확보</li>
+          <li>실서버 데이터를 개발 서버로 복제하는 운영 API로 라이브 이슈 재현 시간 <strong>2시간 → 1분</strong></li>
+          <li>쿠폰 연속 입력 실패 제한(무차별 대입 방지), 개인정보 재동의 API, 유·무료 재화 교차 결제 패키지 개발</li>
+        </ul>
+        <div class="stack">
+          <span class="tag gray">Java</span><span class="tag gray">Protocol Buffers</span><span class="tag gray">MySQL</span><span class="tag gray">MongoDB</span><span class="tag gray">Redis</span><span class="tag gray">AWS</span><span class="tag gray">ELK</span><span class="tag gray">FCM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2023.08 – 2025.07</b>㈜메인라인 · 주임<br>솔루션1팀</div>
+      <div>
+        <h3>보험사 기초서류(약관·산출방법서) 자동 분석 솔루션</h3>
+        <p class="summary">생명보험 3개사·손해보험 2개사 대상 문서 파싱·데이터 추출 시스템 구축. 요건 정의부터 개발, 검증, 운영 서버 관리까지 담당</p>
+        <ul>
+          <li>약관 <strong>602건</strong>을 16개 패턴으로 분류해 추출 룰 공통화 → 신규 약관은 코드 수정 없이 룰 추가로 대응</li>
+          <li>손해보험 보험금 산정 자동화: 사고담보 추출·표준코드 매핑, KDRG 코드 변환, 기존 시스템의 장해율 계산 로직 이전</li>
+          <li>생명보험 산출방법서에서 납입기간·보험기간·사업비 등 PV 산출 요소 자동 추출, 4개 부서의 서로 다른 요건을 하나의 시스템으로 통합</li>
+          <li>문서 분석·추출 시간 <strong>3시간 → 5분</strong>, 보종별 매칭 정확도 <strong>95% 이상</strong></li>
+        </ul>
+        <div class="stack">
+          <span class="tag gray">Java</span><span class="tag gray">Spring</span><span class="tag gray">Oracle</span><span class="tag gray">H2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2023.01 – 2023.07</b>㈜아이티오솔루션 · 사원<br>개발파트</div>
+      <div>
+        <h3>GIS 기반 해역 이용 영향 평가 시스템</h3>
+        <p class="summary">공공데이터 수집부터 지도 레이어 표출, 영역 선택 기능까지 담당</p>
+        <ul>
+          <li>Python 웹 크롤러로 해양·환경 공공데이터를 수집해 PostgreSQL에 적재</li>
+          <li>VWorld API·GeoServer 연동 지도 레이어 구현, 폴리곤 기반 영역 조회 기능 개발</li>
+        </ul>
+        <div class="stack">
+          <span class="tag gray">Java</span><span class="tag gray">Python</span><span class="tag gray">PostgreSQL</span><span class="tag gray">GeoServer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2020.01 – 2022.12</b>세무사 시험 준비<br>수험 기간</div>
+      <div>
+        <h3>세무사 2차 시험 응시 후 개발 공부 시작</h3>
+        <p class="summary">2차 시험 종료 후 2022.08부터 개발 학습을 시작해 2023년 개발 업무로 전환</p>
+      </div>
+    </div>
+
+    <div class="job">
+      <div class="when"><b>2019.01 – 2019.12</b>㈜씨앤에스솔루션<br>사무지원</div>
+      <div>
+        <h3>개발 QA · 사무지원</h3>
+        <p class="summary">개발 QA 업무와 사무지원 업무 수행</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 기술 ============ -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>기술</h2>
+      <p>실무에서 직접 사용한 기술만 적었습니다.</p>
+    </div>
+    <div class="skills">
+      <div class="skill"><h4>Backend</h4><p>Java, Spring Boot, JPA, MyBatis, Python, REST API, Protocol Buffers</p></div>
+      <div class="skill"><h4>Database · Search</h4><p>MySQL, Oracle, Redis, MongoDB, PostgreSQL, OpenSearch / Elasticsearch</p></div>
+      <div class="skill"><h4>AI</h4><p>RAG, LLM 연동(GPT, Gemini), 임베딩 모델, 프롬프트 설계, OCR</p></div>
+      <div class="skill"><h4>Frontend</h4><p>React, Next.js, JavaScript</p></div>
+      <div class="skill"><h4>Infra · DevOps</h4><p>AWS(EC2, EBS, RDS), Docker, Jenkins, GitHub Actions, ELK Stack</p></div>
+      <div class="skill"><h4>Tools · Security</h4><p>Git, Sparrow(보안 진단), Selenium, DBeaver</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 학력 · 자격 ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <h3 class="small">자격증 · 시험</h3>
+        <ul class="list-plain">
+          <li><span>정보처리기사</span><span>2023.11</span></li>
+          <li><span>SQL 개발자(SQLD)</span><span>2024.04</span></li>
+          <li><span>세무사 1차 시험 합격</span><span>2021.05</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="small">학력 · 교육</h3>
+        <ul class="list-plain">
+          <li><span>한국방송통신대학교 회계금융전공 졸업 (편입)</span><span>2021.02</span></li>
+          <li><span>AI Agent–Legacy 통합 구조 이해 (MCP 실습)</span><span>2026.11</span></li>
+          <li><span>AI 활용 마스터과정 (AI 워크플로우·Agent)</span><span>2026.06</span></li>
+          <li><span>프로젝트 기반 Java 응용 SW 개발자 과정</span><span>2018.12</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 김명현</span>
+    <span>010-4628-5147 · <a href="mailto:kmh950618@naver.com">kmh950618@naver.com</a> · <a href="https://github.com/luke-sage-kim" target="_blank" rel="noopener">github.com/luke-sage-kim</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
